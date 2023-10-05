@@ -1,4 +1,4 @@
-﻿using FAMS.V0.Shared.DbClient;
+﻿using System.Linq.Expressions;
 using FAMS.V0.Shared.Exceptions;
 using FAMS.V0.Shared.Interfaces;
 using MongoDB.Driver;
@@ -20,14 +20,29 @@ public class MongoRepository<T> : IRepository<T> where T : IEntity
         return await _mongoCollection.Find(_filter.Empty).ToListAsync();
     }
 
+    public async Task<IReadOnlyCollection<T>> GetAllAsync(Expression<Func<T, bool>> filter)
+    {
+        return await _mongoCollection.Find(filter).ToListAsync();
+    }
+
     public async Task<IReadOnlyCollection<T>> GetPerPageAsync(int pageSize, int offset)
     {
         return await _mongoCollection.Find(_filter.Empty).Skip((offset - 1) * pageSize).Limit(pageSize).ToListAsync();
     }
 
+    public async Task<IReadOnlyCollection<T>> GetPerPageAsync(int pageSize, int offset, Expression<Func<T, bool>> filter)
+    {
+        return await _mongoCollection.Find(filter).Skip((offset - 1) * pageSize).Limit(pageSize).ToListAsync();
+    }
+
     public async Task<T?> GetByIdAsync(Guid id)
     {
         var filter = _filter.Eq(u => u.Id, id);
+        return await _mongoCollection.Find(filter).FirstOrDefaultAsync();
+    }
+
+    public async Task<T?> GetByAsync(Expression<Func<T, bool>> filter)
+    {
         return await _mongoCollection.Find(filter).FirstOrDefaultAsync();
     }
 

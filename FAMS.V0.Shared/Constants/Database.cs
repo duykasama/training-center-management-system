@@ -1,4 +1,4 @@
-﻿namespace FAMS.V0.Shared.Enums;
+﻿namespace FAMS.V0.Shared.Constants;
 
 public static class Database
 {

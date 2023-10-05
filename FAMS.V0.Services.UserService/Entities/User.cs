@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
-using FAMS.V0.Shared.Enums;
+using FAMS.V0.Shared.Constants;
 using FAMS.V0.Shared.Interfaces;
 
 namespace FAMS.V0.Services.UserService.Entities;
@@ -12,9 +12,9 @@ public class User : IEntity
     public string Email { get; set; } = null!;
     public string Phone { get; set; }
     public DateTime Dob { get; set; }
-    public Gender Gender { get; set; }
+    public string Gender { get; set; }
     public Role Role { get; set; }
-    public Status Status { get; set; }
+    public string Status { get; set; }
     public Guid CreatedBy { get; set; }
     public DateTimeOffset CreatedDate { get; set; }
     public Guid ModifiedBy { get; set; }

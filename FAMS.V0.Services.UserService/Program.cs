@@ -1,10 +1,6 @@
 using FAMS.V0.Services.UserService.Entities;
-using FAMS.V0.Services.UserService.Repositories;
-using FAMS.V0.Shared.DbClient;
-using FAMS.V0.Shared.Enums;
-using FAMS.V0.Shared.Interfaces;
-using FAMS.V0.Shared.Repositories;
-using MongoDB.Driver;
+using FAMS.V0.Shared.Constants;
+using FAMS.V0.Shared.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,12 +11,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services
-    .AddSingleton(_ => new MongoClient(builder.Configuration.GetConnectionString(Connection.MongoDbConnection)).GetDatabase(Database.FAMS_DB))
-    .AddScoped<IRepository<User>>(serviceProvider =>
-    {
-        var database = serviceProvider.GetService<IMongoDatabase>();
-        return new MongoRepository<User>(database, Collection.User);
-    });
+    .AddMongo()
+    .AddMongoRepository<User>(Collection.User);
 
 var app = builder.Build();
 

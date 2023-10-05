@@ -1,8 +1,8 @@
-﻿using FAMS.V0.Shared.Enums;
+﻿using FAMS.V0.Shared.Constants;
 using Microsoft.Extensions.Configuration;
 using MongoDB.Driver;
 
-namespace FAMS.V0.Shared.DbClient;
+namespace FAMS.V0.Shared.MongoDb;
 
 public class MongoDbClient
 {

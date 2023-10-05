@@ -1,5 +1,5 @@
 ﻿using FAMS.V0.Services.UserService.Entities;
-using FAMS.V0.Shared.Enums;
+using FAMS.V0.Shared.Constants;
 
 namespace FAMS.V0.Services.UserService.Dtos;
 
@@ -10,9 +10,9 @@ public class UserDto
     public string Email { get; set; } = null!;
     public string Phone { get; set; }
     public DateTime Dob { get; set; }
-    public Gender Gender { get; set; }
+    public string Gender { get; set; }
     public Role Role { get; set; }
-    public Status Status { get; set; }
+    public string Status { get; set; }
     public Guid CreatedBy { get; set; }
     public DateTimeOffset CreatedDate { get; set; } = DateTimeOffset.Now;
     public Guid ModifiedBy { get; set; }

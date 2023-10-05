@@ -1,9 +1,9 @@
 ﻿using FAMS.V0.Services.UserService.Dtos;
 using FAMS.V0.Services.UserService.Entities;
 
-namespace FAMS.V0.Services.UserService.Extensions;
+namespace FAMS.V0.Services.UserService.Mappers;
 
-public class UserExtension
+public static class UserMapper
 {
     public static UserDto EntityToUserDto(User userEntity)
     {

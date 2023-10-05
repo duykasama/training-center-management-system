@@ -1,7 +1,7 @@
 ﻿using FAMS.V0.Services.UserService.Dtos;
 using FAMS.V0.Services.UserService.Entities;
-using FAMS.V0.Services.UserService.Extensions;
-using FAMS.V0.Shared.Enums;
+using FAMS.V0.Services.UserService.Mappers;
+using FAMS.V0.Shared.Constants;
 using FAMS.V0.Shared.Exceptions;
 using FAMS.V0.Shared.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -28,7 +28,7 @@ public class UsersController : Controller
         try
         {
             var users = await _userRepository.GetAllAsync();
-            return Ok(users.Select(UserExtension.EntityToUserDto));
+            return Ok(users.Select(UserMapper.EntityToUserDto));
         }
         catch (Exception e)
         {
@@ -43,7 +43,7 @@ public class UsersController : Controller
         try
         {
             var users = await _userRepository.GetPerPageAsync(pageSize, offset);
-            return Ok(users.Select(UserExtension.EntityToUserDto));
+            return Ok(users.Select(UserMapper.EntityToUserDto));
         }
         catch (Exception e)
         {
@@ -57,7 +57,7 @@ public class UsersController : Controller
     {
         try
         {
-            var userEntity = UserExtension.CreateUserDtoToEntity(userDto);
+            var userEntity = UserMapper.CreateUserDtoToEntity(userDto);
             
             await _userRepository.CreateUserAsync(userEntity);
             return CreatedAtAction(nameof(CreateUser), new {id = userEntity.Id}, userEntity);
@@ -120,7 +120,7 @@ public class UsersController : Controller
                 throw new UserDoesNotExistException();
             }
 
-            user = UserExtension.UpdateUserDtoToEntity(user, userDto);
+            user = UserMapper.UpdateUserDtoToEntity(user, userDto);
             await _userRepository.UpdateAsync(user);
             return NoContent();
         }
