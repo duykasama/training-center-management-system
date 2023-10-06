@@ -1,5 +1,6 @@
 using FAMS.V0.Services.SyllabusService.Entities;
 using FAMS.V0.Shared.Constants;
+using FAMS.V0.Shared.Extensions;
 using FAMS.V0.Shared.Interfaces;
 using FAMS.V0.Shared.Repositories;
 using MongoDB.Driver;
@@ -19,7 +20,13 @@ builder.Services.AddSingleton(_ => new MongoClient(builder.Configuration.GetConn
         var database = services.GetService<IMongoDatabase>();
         return new MongoRepository<Syllabus>(database, Collection.Syllabus);
     });
-    
+
+builder.Services
+    .AddMongo()
+    .AddMongoRepository<Syllabus>(Collection.Syllabus);
+
+builder.Services.AddRabbitMq(Service.SyllabusService);
+
 
 var app = builder.Build();
 

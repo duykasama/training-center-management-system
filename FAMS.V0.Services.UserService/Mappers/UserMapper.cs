@@ -1,5 +1,5 @@
 ﻿using FAMS.V0.Services.UserService.Dtos;
-using FAMS.V0.Services.UserService.Entities;
+using FAMS.V0.Shared.Entities;
 
 namespace FAMS.V0.Services.UserService.Mappers;
 

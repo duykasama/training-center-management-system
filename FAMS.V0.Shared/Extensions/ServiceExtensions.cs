@@ -1,13 +1,13 @@
-﻿using FAMS.V0.Shared.Constants;
+﻿using System.Reflection;
+using FAMS.V0.Shared.Constants;
 using FAMS.V0.Shared.Interfaces;
 using FAMS.V0.Shared.Repositories;
+using FAMS.V0.Shared.Settings;
+using MassTransit;
+using MassTransit.Definition;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using MongoDB.Bson;
-using MongoDB.Bson.Serialization;
-using MongoDB.Bson.Serialization.Serializers;
 using MongoDB.Driver;
-using Gender = FAMS.V0.Shared.Constants.Gender;
 
 
 namespace FAMS.V0.Shared.Extensions;
@@ -33,6 +33,26 @@ public static class ServiceExtensions
             var database = serviceProvider.GetService<IMongoDatabase>();
             return new MongoRepository<T>(database, collectionName);
         });
+
+        return services;
+    }
+
+    public static IServiceCollection AddRabbitMq(this IServiceCollection services, string serviceName)
+    {
+        services.AddMassTransit(configure =>
+        {
+            configure.AddConsumers(Assembly.GetEntryAssembly());
+            
+            configure.UsingRabbitMq((ctx, configurator) =>
+            {
+                var configuration = ctx.GetService<IConfiguration>();
+                var rabbitMqHost = configuration.GetSection(nameof(RabbitMqSettings)).GetSection(nameof(RabbitMqSettings.Host));
+                configurator.Host(rabbitMqHost.Value);
+                configurator.ConfigureEndpoints(ctx, new KebabCaseEndpointNameFormatter(serviceName, false));
+            });
+        });
+
+        services.AddMassTransitHostedService();
 
         return services;
     }

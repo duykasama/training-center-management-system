@@ -1,5 +1,4 @@
 ﻿using System.Text.Json.Serialization;
-using FAMS.V0.Services.UserService.Entities;
 using FAMS.V0.Shared.Constants;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;

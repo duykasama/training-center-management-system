@@ -1,9 +1,11 @@
 ﻿using FAMS.V0.Services.UserService.Dtos;
-using FAMS.V0.Services.UserService.Entities;
 using FAMS.V0.Services.UserService.Mappers;
 using FAMS.V0.Shared.Constants;
+using FAMS.V0.Shared.Entities;
+using FAMS.V0.Shared.Events.UserEvents;
 using FAMS.V0.Shared.Exceptions;
 using FAMS.V0.Shared.Interfaces;
+using MassTransit;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FAMS.V0.Services.UserService.Controllers;
@@ -15,10 +17,12 @@ public class UsersController : Controller
     private readonly ILogger<UsersController> _logger = new Logger<UsersController>(new LoggerFactory());
     private const string ServerError = "Server error";
     private readonly IRepository<User> _userRepository;
+    private readonly IPublishEndpoint _publishEndpoint;
 
-    public UsersController(IRepository<User> userRepository)
+    public UsersController(IRepository<User> userRepository, IPublishEndpoint publishEndpoint)
     {
         _userRepository = userRepository;
+        _publishEndpoint = publishEndpoint;
     }
 
     [HttpGet]
@@ -60,6 +64,8 @@ public class UsersController : Controller
             var userEntity = UserMapper.CreateUserDtoToEntity(userDto);
             
             await _userRepository.CreateUserAsync(userEntity);
+            
+            await _publishEndpoint.Publish(new UserCreatedEvent(userEntity));
             return CreatedAtAction(nameof(CreateUser), new {id = userEntity.Id}, userEntity);
         }
         catch (UserAlreadyExistsException e)
@@ -122,6 +128,9 @@ public class UsersController : Controller
 
             user = UserMapper.UpdateUserDtoToEntity(user, userDto);
             await _userRepository.UpdateAsync(user);
+
+            await _publishEndpoint.Publish(new UserUpdatedEvent(user));
+            
             return NoContent();
         }
         catch (UserDoesNotExistException e)
@@ -141,6 +150,9 @@ public class UsersController : Controller
         try
         {
             await _userRepository.DeleteAsync(id);
+
+            await _publishEndpoint.Publish(new UserDeletedEvent(id));
+            
             return NoContent();
         }
         catch (UserDoesNotExistException e)

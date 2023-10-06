@@ -1,0 +1,43 @@
+version: "0.0.0"
+
+services: 
+ mongo:
+  image: mongo:jammy
+  container_name: fams-db
+  volumes: 
+    - mongodb-data:/data/db
+  ports:
+    - 27017:27017
+  
+ rabbit-mq:
+  image: rabbitmq:management-alpine
+  container_name: fams-message-broker
+  volumes:
+   - rabbitmq-data:/var/lib/rabbitmq
+  ports:
+   - 5672:5672
+   - 15672:15672
+  hostname: rabbitmq
+    
+
+# user-service:
+#  depends_on: mongo
+#  build: ./FAMS.V0.Services.UserService
+#  container_name: fams-service-user
+#  expose:
+#   - 5000
+#  ports:
+#   - 5000:5000
+#   - 5001:5001
+#     
+# syllabus-service:
+#  depends_on: mongo
+#  build: ./FAMS.V0.Services.SyllabusService
+#  container_name: fams-service-syllabus
+  
+    
+volumes: 
+  mongodb-data:
+    external: true
+  rabbitmq-data:
+    external: true
