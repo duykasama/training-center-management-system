@@ -14,19 +14,11 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddSingleton(_ => new MongoClient(builder.Configuration.GetConnectionString(Connection.MongoDbConnection)).GetDatabase(Database.FAMS_DB).GetCollection<Syllabus>(Collection.Syllabus))
-    .AddSingleton<IRepository<Syllabus>>(services =>
-    {
-        var database = services.GetService<IMongoDatabase>();
-        return new MongoRepository<Syllabus>(database, Collection.Syllabus);
-    });
-
 builder.Services
     .AddMongo()
     .AddMongoRepository<Syllabus>(Collection.Syllabus);
 
 builder.Services.AddRabbitMq(Service.SyllabusService);
-
 
 var app = builder.Build();
 

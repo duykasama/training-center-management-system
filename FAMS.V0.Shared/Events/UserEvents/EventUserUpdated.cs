@@ -2,11 +2,11 @@
 
 namespace FAMS.V0.Shared.Events.UserEvents;
 
-public class UserUpdatedEvent
+public class EventUserUpdated
 {
     public User User { get; set; }
 
-    public UserUpdatedEvent(User user)
+    public EventUserUpdated(User user)
     {
         User = user;
     }

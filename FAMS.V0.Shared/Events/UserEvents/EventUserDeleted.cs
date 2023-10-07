@@ -1,10 +1,10 @@
 ﻿namespace FAMS.V0.Shared.Events.UserEvents;
 
-public class UserDeletedEvent
+public class EventUserDeleted
 {
     public Guid Id { get; set; }
 
-    public UserDeletedEvent(Guid id)
+    public EventUserDeleted(Guid id)
     {
         Id = id;
     }

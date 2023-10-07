@@ -46,12 +46,12 @@ public class MongoRepository<T> : IRepository<T> where T : IEntity
         return await _mongoCollection.Find(filter).FirstOrDefaultAsync();
     }
 
-    public async Task CreateUserAsync(T entity)
+    public async Task CreateAsync(T entity)
     {
         var t = await GetByIdAsync(entity.Id);
         if (t is not null)
         {
-            throw new UserAlreadyExistsException();
+            throw new EntityAlreadyExistsException();
         }
 
         await _mongoCollection.InsertOneAsync(entity);
@@ -62,7 +62,7 @@ public class MongoRepository<T> : IRepository<T> where T : IEntity
         var t = await GetByIdAsync(entity.Id);
         if (t is null)
         {
-            throw new UserDoesNotExistException();
+            throw new EntityDoesNotExistException();
         }
 
         var filter = _filter.Eq(x => x.Id, entity.Id);
@@ -74,7 +74,7 @@ public class MongoRepository<T> : IRepository<T> where T : IEntity
         var t = await GetByIdAsync(id);
         if (t is null)
         {
-            throw new UserDoesNotExistException();
+            throw new EntityDoesNotExistException();
         }
     
         var filter = _filter.Eq(x => x.Id, id);

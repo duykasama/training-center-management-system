@@ -25,4 +25,11 @@
       <ProjectReference Include="..\FAMS.V0.Shared\FAMS.V0.Shared.csproj" />
     </ItemGroup>
 
+
+
+
+    <ItemGroup>
+      <Folder Include="Entities\" />
+    </ItemGroup>
+
 </Project>

@@ -4,11 +4,11 @@ using FAMS.V0.Shared.Interfaces;
 
 namespace FAMS.V0.Shared.Events.UserEvents;
 
-public class UserCreatedEvent
+public class EventUserCreated
 {
     public User User { get; set; }
 
-    public UserCreatedEvent(User user)
+    public EventUserCreated(User user)
     {
         User = user;
     }

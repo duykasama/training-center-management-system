@@ -63,12 +63,12 @@ public class UsersController : Controller
         {
             var userEntity = UserMapper.CreateUserDtoToEntity(userDto);
             
-            await _userRepository.CreateUserAsync(userEntity);
+            await _userRepository.CreateAsync(userEntity);
             
-            await _publishEndpoint.Publish(new UserCreatedEvent(userEntity));
+            await _publishEndpoint.Publish(new EventUserCreated(userEntity));
             return CreatedAtAction(nameof(CreateUser), new {id = userEntity.Id}, userEntity);
         }
-        catch (UserAlreadyExistsException e)
+        catch (EntityAlreadyExistsException e)
         {
             _logger.LogError(e.Message);
             return BadRequest(e.Message);
@@ -94,16 +94,16 @@ public class UsersController : Controller
                 Dob = DateTime.Now,
                 Gender = Gender.Male,
                 Role = Role.SuperAdmin,
-                Status = Status.Active,
+                Status = UserStatus.Active,
                 CreatedBy = Guid.Empty,
                 ModifiedBy = Guid.Empty,
                 CreatedDate = DateTimeOffset.Now,
                 ModifiedDate = DateTimeOffset.Now
             };
-            await _userRepository.CreateUserAsync(superAdmin);
+            await _userRepository.CreateAsync(superAdmin);
             return CreatedAtAction(nameof(CreateSuperAdmin), new { id = superAdmin.Id }, superAdmin);
         }
-        catch (UserAlreadyExistsException e)
+        catch (EntityAlreadyExistsException e)
         {
             _logger.LogError(e.Message);
             return BadRequest(e.Message);
@@ -123,17 +123,17 @@ public class UsersController : Controller
             var user = await _userRepository.GetByIdAsync(id);
             if (user is null)
             {
-                throw new UserDoesNotExistException();
+                throw new EntityDoesNotExistException();
             }
 
             user = UserMapper.UpdateUserDtoToEntity(user, userDto);
             await _userRepository.UpdateAsync(user);
 
-            await _publishEndpoint.Publish(new UserUpdatedEvent(user));
+            await _publishEndpoint.Publish(new EventUserUpdated(user));
             
             return NoContent();
         }
-        catch (UserDoesNotExistException e)
+        catch (EntityDoesNotExistException e)
         {
             return BadRequest(e.Message);
         }
@@ -151,11 +151,11 @@ public class UsersController : Controller
         {
             await _userRepository.DeleteAsync(id);
 
-            await _publishEndpoint.Publish(new UserDeletedEvent(id));
+            await _publishEndpoint.Publish(new EventUserDeleted(id));
             
             return NoContent();
         }
-        catch (UserDoesNotExistException e)
+        catch (EntityDoesNotExistException e)
         {
             return BadRequest(e.Message);
         }
