@@ -3,7 +3,7 @@
     {
       "UpstreamPathTemplate": "/api/v0/users",
       "UpstreamHttpMethod": [ "Get", "Post" ],
-      
+
       "DownstreamScheme": "http",
       "DownstreamPathTemplate": "/api/v0/users",
       "DownstreamHostAndPorts": [{

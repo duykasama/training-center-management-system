@@ -3,12 +3,12 @@
     {
       "UpstreamPathTemplate": "/api/v0/users",
       "UpstreamHttpMethod": [ "Get", "Post" ],
-      
+
       "DownstreamScheme": "http",
       "DownstreamPathTemplate": "/api/v0/users",
       "DownstreamHostAndPorts": [{
-        "Host": "userservice",
-        "Port": 80
+        "Host": "localhost",
+        "Port": 5000
       }]
     },{
       "UpstreamPathTemplate": "/api/v0/users/{userId}",
@@ -17,8 +17,8 @@
       "DownstreamScheme": "http",
       "DownstreamPathTemplate": "/api/v0/users/{userId}",
       "DownstreamHostAndPorts": [{
-        "Host": "userservice",
-        "Port": 80
+        "Host": "localhost",
+        "Port": 5000
       }]
     },
 
@@ -29,8 +29,8 @@
       "DownstreamScheme": "http",
       "DownstreamPathTemplate": "/api/v0/syllabuses",
       "DownstreamHostAndPorts": [{
-        "Host": "syllabusservice",
-        "Port": 80
+        "Host": "localhost",
+        "Port": 5050
       }]
     },
     {
@@ -40,8 +40,8 @@
       "DownstreamScheme": "http",
       "DownstreamPathTemplate": "/api/v0/syllabuses/{syllabusId}",
       "DownstreamHostAndPorts": [{
-        "Host": "syllabusservice",
-        "Port": 80
+        "Host": "localhost",
+        "Port": 5050
       }]
     }
   ],

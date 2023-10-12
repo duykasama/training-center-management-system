@@ -9,7 +9,7 @@ services:
   ports:
     - 27017:27017
   
- rabbit-mq:
+ rabbitmq:
   image: rabbitmq:management-alpine
   container_name: fams-message-broker
   volumes:
@@ -19,26 +19,42 @@ services:
    - 15672:15672
   hostname: rabbitmq
     
-
- user-service:
+ userservice:
   depends_on: 
    - mongo
-   - rabbit-mq
-  build: ./FAMS.V0.Services.UserService
+   - rabbitmq
+  image: fams:user-service
+  build: 
+   context: .
+   dockerfile: ./FAMS.V0.Services.UserService/Dockerfile
   container_name: fams-service-user
-  ports:
-   - 10000:80
+#  ports:
+#   - 10000:80
 
- syllabus-service:
+ syllabusservice:
   depends_on: 
    - mongo
-   - rabbit-mq
-  build: ./FAMS.V0.Services.SyllabusService
+   - rabbitmq
+  image: fams:syllabus-service
+  build: 
+   context: .
+   dockerfile: ./FAMS.V0.Services.SyllabusService/Dockerfile
   container_name: fams-service-syllabus
-  ports:
-    - 10001:80
+#  ports:
+#    - 10001:80
   
-    
+ apigateway:
+  depends_on: 
+   - userservice
+   - syllabusservice
+  image: fams:api-gateway
+  build:
+   context: .
+   dockerfile: ./FAMS.V0.ApiGateWay/Dockerfile
+  container_name: fams-api-gateway
+  ports:
+   - 20000:80
+
 volumes: 
   mongodb-data:
     external: true
