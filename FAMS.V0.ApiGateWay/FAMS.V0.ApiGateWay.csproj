@@ -8,29 +8,13 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="FAMS.V0.Shared" Version="1.0.0" />
-        <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.9"/>
-        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0"/>
-    </ItemGroup>
-
-    <ItemGroup>
       <Content Include="..\.dockerignore">
         <Link>.dockerignore</Link>
       </Content>
     </ItemGroup>
 
-
-
-
     <ItemGroup>
-      <ProjectReference Include="..\FAMS.V0.Shared\FAMS.V0.Shared.csproj" />
-    </ItemGroup>
-
-
-
-
-    <ItemGroup>
-      <Folder Include="Entities\" />
+      <PackageReference Include="Ocelot" Version="20.0.0" />
     </ItemGroup>
 
 </Project>

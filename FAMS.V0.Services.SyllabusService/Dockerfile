@@ -7,7 +7,7 @@ FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
 COPY ["./FAMS.V0.Services.SyllabusService.csproj", "FAMS.V0.Services.SyllabusService/"]
 RUN dotnet restore "FAMS.V0.Services.SyllabusService/FAMS.V0.Services.SyllabusService.csproj"
-COPY . .
+COPY . ./FAMS.V0.Services.SyllabusService
 WORKDIR "/src/FAMS.V0.Services.SyllabusService"
 RUN dotnet build "./FAMS.V0.Services.SyllabusService.csproj" -c Release -o /app/build
 

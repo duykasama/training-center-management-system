@@ -8,8 +8,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="MassTransit.AspNetCore" Version="7.3.1" />
-        <PackageReference Include="MassTransit.RabbitMQ" Version="7.3.1" />
+        <PackageReference Include="FAMS.V0.Shared" Version="1.0.0" />
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.9"/>
         <PackageReference Include="Microsoft.Extensions.Http.Polly" Version="7.0.11" />
         <PackageReference Include="Polly" Version="8.0.0" />
@@ -21,6 +20,7 @@
         <Link>.dockerignore</Link>
       </Content>
       <ProjectReference Include="..\FAMS.V0.Shared\FAMS.V0.Shared.csproj" />
+      <Folder Include="Consumers\" />
       <Folder Include="Entities\" />
     </ItemGroup>
     

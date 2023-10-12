@@ -7,7 +7,7 @@ FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
 COPY ["./FAMS.V0.Services.UserService.csproj", "FAMS.V0.Services.UserService/"]
 RUN dotnet restore "FAMS.V0.Services.UserService/FAMS.V0.Services.UserService.csproj"
-COPY . .
+COPY . ./FAMS.V0.Services.UserService
 WORKDIR "/src/FAMS.V0.Services.UserService"
 RUN dotnet build "./FAMS.V0.Services.UserService.csproj" -c Release -o /app/build
 

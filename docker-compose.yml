@@ -20,20 +20,23 @@ services:
   hostname: rabbitmq
     
 
-# user-service:
-#  depends_on: mongo
-#  build: ./FAMS.V0.Services.UserService
-#  container_name: fams-service-user
-#  expose:
-#   - 5000
-#  ports:
-#   - 5000:5000
-#   - 5001:5001
-#     
-# syllabus-service:
-#  depends_on: mongo
-#  build: ./FAMS.V0.Services.SyllabusService
-#  container_name: fams-service-syllabus
+ user-service:
+  depends_on: 
+   - mongo
+   - rabbit-mq
+  build: ./FAMS.V0.Services.UserService
+  container_name: fams-service-user
+  ports:
+   - 10000:80
+
+ syllabus-service:
+  depends_on: 
+   - mongo
+   - rabbit-mq
+  build: ./FAMS.V0.Services.SyllabusService
+  container_name: fams-service-syllabus
+  ports:
+    - 10001:80
   
     
 volumes: 
