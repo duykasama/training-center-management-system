@@ -28,7 +28,7 @@ public static class ServiceExtensions
 
         return services;
     }
-
+    
     public static IServiceCollection AddMongoRepository<T>(this IServiceCollection services, string collectionName) where T : IEntity
     {
         services.AddSingleton<IRepository<T>>(serviceProvider =>
@@ -64,13 +64,17 @@ public static class ServiceExtensions
     {
         services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(builder =>
         {
+
+            var configuration = services.BuildServiceProvider().GetService<IConfiguration>();
+            var jwtSettings = configuration.GetSection(nameof(JwtSettings)).Get<JwtSettings>();
+            
             builder.TokenValidationParameters = new TokenValidationParameters()
             {
                 ValidateAudience = false,
                 ValidateIssuer = false,
                 ValidateIssuerSigningKey = true,
                 ValidateLifetime = true,
-                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(""))
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.SigningKey))
             };
         });
 

@@ -6,10 +6,12 @@ using FAMS.V0.Shared.Events.UserEvents;
 using FAMS.V0.Shared.Exceptions;
 using FAMS.V0.Shared.Interfaces;
 using MassTransit;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FAMS.V0.Services.UserService.Controllers;
 
+[Authorize]
 [ApiController]
 [Route("api/v0/[controller]")]
 public class UsersController : Controller

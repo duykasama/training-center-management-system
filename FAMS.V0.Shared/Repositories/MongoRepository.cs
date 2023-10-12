@@ -41,7 +41,7 @@ public class MongoRepository<T> : IRepository<T> where T : IEntity
         return await _mongoCollection.Find(filter).FirstOrDefaultAsync();
     }
 
-    public async Task<T?> GetByAsync(Expression<Func<T, bool>> filter)
+    public async Task<T?> GetAsync(Expression<Func<T, bool>> filter)
     {
         return await _mongoCollection.Find(filter).FirstOrDefaultAsync();
     }

@@ -57,6 +57,6 @@ services:
 
 volumes: 
   mongodb-data:
-    external: true
+   name: mongodb-data
   rabbitmq-data:
-    external: true
+    name: rabbitmq-data
