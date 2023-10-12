@@ -10,7 +10,7 @@ public class MongoDbClient
 
     public MongoDbClient(IConfiguration configuration)
     {
-        var connectionString = configuration.GetConnectionString(Connection.MongoDbConnection);
+        var connectionString = configuration.GetConnectionString(DbConnection.MongoDbConnection);
         _mongoClient = new MongoClient(connectionString);
     }
     

@@ -1,12 +1,15 @@
 ﻿using System.Reflection;
+using System.Text;
 using FAMS.V0.Shared.Constants;
 using FAMS.V0.Shared.Interfaces;
 using FAMS.V0.Shared.Repositories;
 using FAMS.V0.Shared.Settings;
 using MassTransit;
 using MassTransit.Definition;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
 using MongoDB.Driver;
 
 
@@ -19,7 +22,7 @@ public static class ServiceExtensions
         services.AddSingleton(serviceProvider =>
         {
             var configuration = serviceProvider.GetService<IConfiguration>();
-            return new MongoClient(configuration.GetConnectionString(Connection.MongoDbConnection)).GetDatabase(
+            return new MongoClient(configuration.GetConnectionString(DbConnection.MongoDbConnection)).GetDatabase(
                 Database.FAMS_DB);
         });
 
@@ -53,6 +56,23 @@ public static class ServiceExtensions
         });
 
         services.AddMassTransitHostedService();
+
+        return services;
+    }
+
+    public static IServiceCollection AddJwtAuthentication(this IServiceCollection services)
+    {
+        services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(builder =>
+        {
+            builder.TokenValidationParameters = new TokenValidationParameters()
+            {
+                ValidateAudience = false,
+                ValidateIssuer = false,
+                ValidateIssuerSigningKey = true,
+                ValidateLifetime = true,
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(""))
+            };
+        });
 
         return services;
     }

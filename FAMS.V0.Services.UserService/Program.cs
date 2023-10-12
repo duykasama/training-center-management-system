@@ -20,7 +20,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services
     .AddMongo()
-    .AddMongoRepository<User>(Collection.User);
+    .AddMongoRepository<User>(DbCollection.User);
 
 builder.Services
     .AddHttpClient<HttpClient>(client =>
@@ -36,6 +36,8 @@ builder.Services
 
 builder.Services.AddRabbitMq(Service.UserService);
 
+builder.Services.AddJwtAuthentication();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -47,6 +49,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
