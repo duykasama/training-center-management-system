@@ -1,6 +1,6 @@
 ﻿using FAMS.V0.Services.SyllabusService.Dtos;
-using FAMS.V0.Services.SyllabusService.Entities;
 using FAMS.V0.Services.SyllabusService.Mapper;
+using FAMS.V0.Shared.Domain.Entities;
 using FAMS.V0.Shared.Events.SyllabusEvents;
 using FAMS.V0.Shared.Exceptions;
 using FAMS.V0.Shared.Interfaces;

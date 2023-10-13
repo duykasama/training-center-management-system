@@ -2,7 +2,7 @@
 using FAMS.V0.Shared.Constants;
 using FAMS.V0.Shared.Interfaces;
 
-namespace FAMS.V0.Shared.Entities;
+namespace FAMS.V0.Shared.Domain.Entities;
 
 public class User : IEntity
 {

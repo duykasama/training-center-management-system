@@ -1,5 +1,5 @@
 using FAMS.V0.Shared.Constants;
-using FAMS.V0.Shared.Entities;
+using FAMS.V0.Shared.Domain.Entities;
 using FAMS.V0.Shared.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
