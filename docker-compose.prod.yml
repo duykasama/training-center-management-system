@@ -1,0 +1,59 @@
+version: "0.0.0"
+
+services: 
+ mongo:
+  image: mongo:jammy
+  container_name: fams-db
+  volumes: 
+    - mongodb-data:/data/db
+  ports:
+    - 27017:27017
+  
+ rabbitmq:
+  image: rabbitmq:management-alpine
+  container_name: fams-message-broker
+  volumes:
+   - rabbitmq-data:/var/lib/rabbitmq
+  ports:
+   - 5672:5672
+   - 15672:15672
+  hostname: rabbitmq
+    
+ apigateway:
+  image: ${DOCKER_REGISTRY}/fams:api-gateway
+  build:
+   context: .
+   dockerfile: ./FAMS.V0.ApiGateWay/Dockerfile
+  container_name: fams-api-gateway
+  ports:
+   - 20000:80   
+  
+ userservice:
+  depends_on: 
+   - mongo
+   - rabbitmq
+  image: ${DOCKER_REGISTRY}/fams:user-service
+  container_name: fams-service-user
+
+ syllabusservice:
+  depends_on: 
+   - mongo
+   - rabbitmq
+  image: ${DOCKER_REGISTRY}/fams:syllabus-service
+  container_name: fams-service-syllabus
+ 
+ authenticationservice:
+  depends_on: 
+   - mongo
+   - rabbitmq
+  image: ${DOCKER_REGISTRY}/fams:authentication-service
+  container_name: fams-service-authentication
+
+
+
+
+volumes: 
+  mongodb-data:
+   name: mongodb-data
+  rabbitmq-data:
+    name: rabbitmq-data
