@@ -7,6 +7,7 @@ using FAMS.V0.Shared.Exceptions;
 using FAMS.V0.Shared.Interfaces;
 using MassTransit;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 
 namespace FAMS.V0.Services.AuthenticationService.Controllers;
 
@@ -92,16 +93,35 @@ public class AuthenticationController : Controller
 
     [HttpPost]
     [Route("logout")]
-    public async Task<IActionResult> Logout()
+    public IActionResult Logout()
     {
-        
-        return Ok();
+        Response.Cookies.Delete("refreshToken");
+        return NoContent();
     }
 
     [HttpPost]
     [Route("refresh")]
     public async Task<IActionResult> RefreshToken()
     {
-        return Ok();
+        try
+        {
+            var refreshToken = Request.Cookies["refreshToken"];
+            if (refreshToken is null)
+            {
+                return BadRequest("Refresh token does not exist");
+            }
+
+            var newAccessToken = _jwtService.RefreshToken(refreshToken);
+            
+            return Ok(newAccessToken);
+        }
+        catch (SecurityTokenExpiredException)
+        {
+            return Forbid("Token expired");
+        }
+        catch (Exception e)
+        {
+            return Problem(e.Message);
+        }
     }
 }
