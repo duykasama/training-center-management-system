@@ -19,6 +19,18 @@ services:
    - 15672:15672
   hostname: rabbitmq
     
+ apigateway:
+  depends_on:
+   - userservice
+   - syllabusservice
+  image: fams:api-gateway
+  build:
+   context: .
+   dockerfile: ./FAMS.V0.ApiGateWay/Dockerfile
+  container_name: fams-api-gateway
+  ports:
+   - 20000:80   
+  
  userservice:
   depends_on: 
    - mongo
@@ -42,18 +54,19 @@ services:
   container_name: fams-service-syllabus
 #  ports:
 #    - 10001:80
-  
- apigateway:
+ 
+ authenticationservice:
   depends_on: 
-   - userservice
-   - syllabusservice
-  image: fams:api-gateway
+   - mongo
+   - rabbitmq
+  image: fams:authentication-service
   build:
    context: .
-   dockerfile: ./FAMS.V0.ApiGateWay/Dockerfile
-  container_name: fams-api-gateway
-  ports:
-   - 20000:80
+   dockerfile: ./FAMS.V0.Services.AuthenticationService/Dockerfile
+  container_name: fams-service-authentication
+
+
+
 
 volumes: 
   mongodb-data:

@@ -22,6 +22,7 @@
       }]
     },
 
+    
     {
       "UpstreamPathTemplate": "/api/v0/syllabuses",
       "UpstreamHttpMethod": [ "Get", "Post" ],
@@ -43,9 +44,55 @@
         "Host": "syllabusservice",
         "Port": 80
       }]
+    },
+
+    
+    {
+      "UpstreamPathTemplate": "/api/v0/authentication",
+      "UpstreamHttpMethod": [ "Post" ],
+      
+      "DownStreamScheme": "http",
+      "DownStreamPathTemplate": "/api/v0/authentication",
+      "DownStreamHostAndPorts": [{
+        "Host": "authenticationservice",
+        "Port": 80
+      }]
+    },
+    {
+      "UpstreamPathTemplate": "/api/v0/authentication/login",
+      "UpstreamHttpMethod": [ "Post" ],
+
+      "DownStreamScheme": "http",
+      "DownStreamPathTemplate": "/api/v0/authentication/login",
+      "DownStreamHostAndPorts": [{
+        "Host": "authenticationservice",
+        "Port": 80
+      }]
+    },
+    {
+      "UpstreamPathTemplate": "/api/v0/authentication/logout",
+      "UpstreamHttpMethod": [ "Post" ],
+
+      "DownStreamScheme": "http",
+      "DownStreamPathTemplate": "/api/v0/authentication/logout",
+      "DownStreamHostAndPorts": [{
+        "Host": "authenticationservice",
+        "Port": 80
+      }]
+    },
+    {
+      "UpstreamPathTemplate": "/api/v0/authentication/refresh",
+      "UpstreamHttpMethod": [ "Post" ],
+
+      "DownStreamScheme": "http",
+      "DownStreamPathTemplate": "/api/v0/authentication/refresh",
+      "DownStreamHostAndPorts": [{
+        "Host": "authenticationservice",
+        "Port": 80
+      }]
     }
   ],
   "GlobalConfiguration": {
-    "BaseUrl": "http://localhost:80"
+    "BaseUrl": "http://localhost:20000"
   }
 }

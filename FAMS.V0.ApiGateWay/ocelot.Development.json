@@ -43,9 +43,55 @@
         "Host": "localhost",
         "Port": 5050
       }]
+    },
+
+
+    {
+      "UpstreamPathTemplate": "/api/v0/authentication",
+      "UpstreamHttpMethod": [ "Post" ],
+
+      "DownStreamScheme": "http",
+      "DownStreamPathTemplate": "/api/v0/authentication",
+      "DownStreamHostAndPorts": [{
+        "Host": "localhost",
+        "Port": 6000
+      }]
+    },
+    {
+      "UpstreamPathTemplate": "/api/v0/authentication/login",
+      "UpstreamHttpMethod": [ "Post" ],
+
+      "DownStreamScheme": "http",
+      "DownStreamPathTemplate": "/api/v0/authentication/login",
+      "DownStreamHostAndPorts": [{
+        "Host": "localhost",
+        "Port": 6000
+      }]
+    },
+    {
+      "UpstreamPathTemplate": "/api/v0/authentication/logout",
+      "UpstreamHttpMethod": [ "Post" ],
+
+      "DownStreamScheme": "http",
+      "DownStreamPathTemplate": "/api/v0/authentication/logout",
+      "DownStreamHostAndPorts": [{
+        "Host": "localhost",
+        "Port": 6000
+      }]
+    },
+    {
+      "UpstreamPathTemplate": "/api/v0/authentication/refresh",
+      "UpstreamHttpMethod": [ "Post" ],
+
+      "DownStreamScheme": "http",
+      "DownStreamPathTemplate": "/api/v0/authentication/refresh",
+      "DownStreamHostAndPorts": [{
+        "Host": "localhost",
+        "Port": 6000
+      }]
     }
   ],
   "GlobalConfiguration": {
-    "BaseUrl": "http://localhost:80"
+    "BaseUrl": "http://localhost:10000"
   }
 }
