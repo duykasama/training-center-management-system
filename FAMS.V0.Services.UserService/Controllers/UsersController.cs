@@ -1,7 +1,7 @@
 ﻿using FAMS.V0.Services.UserService.Dtos;
 using FAMS.V0.Services.UserService.Mappers;
 using FAMS.V0.Shared.Constants;
-using FAMS.V0.Shared.Entities;
+using FAMS.V0.Shared.Domain.Entities;
 using FAMS.V0.Shared.Events.UserEvents;
 using FAMS.V0.Shared.Exceptions;
 using FAMS.V0.Shared.Interfaces;

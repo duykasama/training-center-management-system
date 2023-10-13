@@ -1,5 +1,5 @@
 ﻿using FAMS.V0.Services.SyllabusService.Dtos;
-using FAMS.V0.Services.SyllabusService.Entities;
+using FAMS.V0.Shared.Domain.Entities;
 
 namespace FAMS.V0.Services.SyllabusService.Mapper;
 

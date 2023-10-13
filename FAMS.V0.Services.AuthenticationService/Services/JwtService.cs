@@ -1,7 +1,7 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using FAMS.V0.Shared.Entities;
+using FAMS.V0.Shared.Domain.Entities;
 using FAMS.V0.Shared.Settings;
 using Microsoft.IdentityModel.Tokens;
 

@@ -1,6 +1,6 @@
 ﻿using FAMS.V0.Shared.Interfaces;
 
-namespace FAMS.V0.Services.SyllabusService.Entities;
+namespace FAMS.V0.Shared.Domain.Entities;
 
 public class Syllabus : IEntity
 {

@@ -2,7 +2,7 @@
 using FAMS.V0.Services.AuthenticationService.Services;
 using FAMS.V0.Shared.Constants;
 using FAMS.V0.Shared.Domain.Dtos;
-using FAMS.V0.Shared.Entities;
+using FAMS.V0.Shared.Domain.Entities;
 using FAMS.V0.Shared.Exceptions;
 using FAMS.V0.Shared.Interfaces;
 using MassTransit;
