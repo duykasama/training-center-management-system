@@ -30,6 +30,10 @@ pipeline{
         }
         stage("Deploy"){
             steps{
+                // stop containers if running
+                sh "docker stop fams-api-gateway fams-db fams-message-broker fams-service-user fams-service-syllabus fams-service-authentication"
+                // delete stopped containers
+                sh "docker container prune -f"
                 sh "docker compose -f docker-compose.prod.yml up -d"
             }
         }
