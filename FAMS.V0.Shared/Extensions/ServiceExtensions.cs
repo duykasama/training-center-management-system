@@ -80,4 +80,17 @@ public static class ServiceExtensions
 
         return services;
     }
+
+    public static IServiceCollection AddCorsDefault(this IServiceCollection services)
+    {
+        services.AddCors(options =>
+        {
+            options.AddPolicy("fams-cors-policy", builder =>
+            {
+                builder.WithOrigins("http://localhost:3000").AllowAnyMethod().AllowAnyHeader().AllowCredentials();
+            });
+        });
+        
+        return services;
+    }
 }

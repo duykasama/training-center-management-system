@@ -64,6 +64,11 @@ public class UsersController : Controller
         try
         {
             var userEntity = UserMapper.CreateUserDtoToEntity(userDto);
+            var retrievedUser = await _userRepository.GetAsync(e => e.Email == userEntity.Email);
+            if (retrievedUser is not null)
+            {
+                throw new EntityAlreadyExistsException();
+            }
             
             await _userRepository.CreateAsync(userEntity);
             
