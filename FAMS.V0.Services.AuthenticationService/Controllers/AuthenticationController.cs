@@ -44,9 +44,14 @@ public class AuthenticationController : Controller
                 CreatedDate = DateTimeOffset.Now,
                 Role = Role.Trainee
             };
+            var validationUser = _userRepository.GetAsync(u => u.Email == userRegister.Email);
+            if (validationUser is not null)
+            {
+                throw new EntityAlreadyExistsException();
+            }
             await _userRepository.CreateAsync(user);
 
-            var createdUser = await _userRepository.GetAsync(filter => filter.Email == userRegister.Email);
+            var createdUser = await _userRepository.GetAsync(u => u.Email == userRegister.Email);
 
             if (createdUser is null)
             {

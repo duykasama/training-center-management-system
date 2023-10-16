@@ -48,8 +48,8 @@ public class MongoRepository<T> : IRepository<T> where T : IEntity
 
     public async Task CreateAsync(T entity)
     {
-        var t = await GetByIdAsync(entity.Id);
-        if (t is not null)
+        var getById = await GetByIdAsync(entity.Id);
+        if (getById is not null)
         {
             throw new EntityAlreadyExistsException();
         }
