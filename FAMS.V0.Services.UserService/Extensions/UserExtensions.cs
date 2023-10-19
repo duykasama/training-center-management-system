@@ -1,13 +1,13 @@
 ﻿using FAMS.V0.Services.UserService.Dtos;
 using FAMS.V0.Shared.Domain.Entities;
 
-namespace FAMS.V0.Services.UserService.Mappers;
+namespace FAMS.V0.Services.UserService.Extensions;
 
-public static class UserMapper
+public static class UserExtensions
 {
-    public static UserDto EntityToUserDto(User userEntity)
+    public static DtoUser ToUserDto(this User userEntity)
     {
-        return new UserDto()
+        return new DtoUser()
         {
             Id = userEntity.Id,
             Name = userEntity.Name,
@@ -21,22 +21,22 @@ public static class UserMapper
         };
     }
 
-    public static User UserDtoToEntity(UserDto userDto)
+    public static User ToEntity(this DtoUser dtoUser)
     {
         return new User()
         {
-            Name = userDto.Name,
-            Email = userDto.Name,
-            Phone = userDto.Phone,
-            Dob = userDto.Dob,
-            Gender = userDto.Gender,
-            Role = userDto.Role,
-            Status = userDto.Status,
-            CreatedBy = userDto.CreatedBy,
+            Name = dtoUser.Name,
+            Email = dtoUser.Name,
+            Phone = dtoUser.Phone,
+            Dob = dtoUser.Dob,
+            Gender = dtoUser.Gender,
+            Role = dtoUser.Role,
+            Status = dtoUser.Status,
+            CreatedBy = dtoUser.CreatedBy,
         };
     }
 
-    public static User UpdateUserDtoToEntity(User user, UpdateUserDto userDto)
+    public static User ToEntity(this DtoUserUpdate userDto, User user)
     {
         user.Name = userDto.Name;
         user.Email = userDto.Email;
@@ -49,7 +49,7 @@ public static class UserMapper
         return user;
     }
 
-    public static User CreateUserDtoToEntity(CreateUserDto userDto)
+    public static User ToEntity(this DtoUserCreate userDto)
     {
         return new User()
         {

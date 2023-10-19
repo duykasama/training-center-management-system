@@ -20,4 +20,6 @@ public class User : IEntity
     public DateTimeOffset CreatedDate { get; set; }
     public Guid ModifiedBy { get; set; }
     public DateTimeOffset ModifiedDate { get; set; }
+    public Guid Permission { get; set; }
+    public IEnumerable<Guid> Class { get; set; } = new List<Guid>();
 }

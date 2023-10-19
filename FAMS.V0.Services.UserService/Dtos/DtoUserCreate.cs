@@ -5,7 +5,7 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace FAMS.V0.Services.UserService.Dtos;
 
-public class CreateUserDto
+public class DtoUserCreate
 {
     public string Name { get; set; }
     public string Email { get; set; }

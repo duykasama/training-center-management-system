@@ -2,7 +2,7 @@
 
 namespace FAMS.V0.Services.UserService.Dtos;
 
-public class UpdateUserDto
+public class DtoUserUpdate
 {
     public string Name { get; set; } = null!;
     public string Email { get; set; } = null!;

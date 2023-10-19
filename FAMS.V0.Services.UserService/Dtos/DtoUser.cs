@@ -2,7 +2,7 @@
 
 namespace FAMS.V0.Services.UserService.Dtos;
 
-public class UserDto
+public class DtoUser
 {
     public Guid Id { get; set; }
     public string Name { get; set; } = null!;

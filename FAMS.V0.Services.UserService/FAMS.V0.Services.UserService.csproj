@@ -20,7 +20,6 @@
       </Content>
       <Folder Include="Entities\" />
       <ProjectReference Include="..\FAMS.V0.Shared\FAMS.V0.Shared.csproj" />
-      <Folder Include="Consumers\" />
     </ItemGroup>
     
 </Project>
