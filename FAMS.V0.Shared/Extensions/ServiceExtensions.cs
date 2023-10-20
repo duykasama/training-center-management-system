@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using MongoDB.Driver;
+using StackExchange.Redis;
 
 
 namespace FAMS.V0.Shared.Extensions;
@@ -22,7 +23,7 @@ public static class ServiceExtensions
         services.AddSingleton(serviceProvider =>
         {
             var configuration = serviceProvider.GetService<IConfiguration>();
-            return new MongoClient(configuration.GetConnectionString(DbConnection.MongoDbConnection)).GetDatabase(
+            return new MongoClient(configuration?.GetConnectionString(DbConnection.MongoDbConnection)).GetDatabase(
                 Database.FAMS_DB);
         });
 
@@ -66,7 +67,7 @@ public static class ServiceExtensions
         {
 
             var configuration = services.BuildServiceProvider().GetService<IConfiguration>();
-            var jwtSettings = configuration.GetSection(nameof(JwtSettings)).Get<JwtSettings>();
+            var jwtSettings = configuration?.GetSection(nameof(JwtSettings)).Get<JwtSettings>();
             
             builder.TokenValidationParameters = new TokenValidationParameters()
             {
@@ -89,6 +90,25 @@ public static class ServiceExtensions
             {
                 builder.WithOrigins("http://localhost:3000").AllowAnyMethod().AllowAnyHeader().AllowCredentials();
             });
+        });
+        
+        return services;
+    }
+
+    public static IServiceCollection AddRedis(this IServiceCollection services)
+    {
+        // var redisSettings = services.BuildServiceProvider().GetService<RedisSettings>();
+        services.AddStackExchangeRedisCache(options =>
+        {
+            var redisSettings = services.BuildServiceProvider().GetService<RedisSettings>();
+            options.Configuration = redisSettings?.GetConnectionString();
+            options.InstanceName = "FAMS_";
+        });
+        
+        services.AddSingleton(provider =>
+        {
+            var redisSettings = provider.GetService<RedisSettings>();
+            return ConnectionMultiplexer.Connect($"{redisSettings?.Host},allowAdmin={redisSettings?.AllowAdmin}");
         });
         
         return services;

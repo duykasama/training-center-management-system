@@ -18,11 +18,18 @@ services:
    - 5672:5672
    - 15672:15672
   hostname: rabbitmq
-    
+  
+ redis:
+  image: redis:alpine
+  container_name: fams-redis
+  ports:
+   - 6379:6379
+ 
  apigateway:
   depends_on:
    - userservice
    - syllabusservice
+   - redis
   image: fams:api-gateway
   build:
    context: .
@@ -35,6 +42,7 @@ services:
   depends_on: 
    - mongo
    - rabbitmq
+   - redis
   image: fams:user-service
   build: 
    context: .
@@ -47,6 +55,7 @@ services:
   depends_on: 
    - mongo
    - rabbitmq
+   - redis
   image: fams:syllabus-service
   build: 
    context: .
@@ -59,6 +68,7 @@ services:
   depends_on: 
    - mongo
    - rabbitmq
+   - redis
   image: fams:authentication-service
   build:
    context: .
@@ -72,4 +82,4 @@ volumes:
   mongodb-data:
    name: mongodb-data
   rabbitmq-data:
-    name: rabbitmq-data
+   name: rabbitmq-data

@@ -18,6 +18,7 @@ builder.Services.AddRabbitMq(Service.UserService);
 builder.Services.AddJwtAuthentication();
 builder.Services.AddCorsDefault();
 builder.Services.AddMongoRepository<UserPermission>(DbCollection.UserPermission);
+builder.Services.AddRedis();
 
 var app = builder.Build();
 
