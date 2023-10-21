@@ -9,10 +9,6 @@ var builder = WebApplication.CreateBuilder(args);
 var random = new Random();
 
 // Add services to the container.
-
-
-
-
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -35,8 +31,8 @@ builder.Services
     .AddPolicyHandler(Policy.TimeoutAsync<HttpResponseMessage>(1));
 
 builder.Services.AddRabbitMq(Service.UserService);
-
 builder.Services.AddJwtAuthentication();
+builder.Services.AddCorsDefault();
 
 var app = builder.Build();
 
@@ -48,7 +44,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
+app.UseCors();
 app.UseAuthentication();
 app.UseAuthorization();
 

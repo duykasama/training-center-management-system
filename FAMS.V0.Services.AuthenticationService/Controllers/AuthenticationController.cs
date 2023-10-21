@@ -1,4 +1,5 @@
-﻿using FAMS.V0.Services.AuthenticationService.Dtos;
+﻿using System.Security.Authentication;
+using FAMS.V0.Services.AuthenticationService.Dtos;
 using FAMS.V0.Services.AuthenticationService.Services;
 using FAMS.V0.Shared.Constants;
 using FAMS.V0.Shared.Domain.Dtos;
@@ -39,12 +40,18 @@ public class AuthenticationController : Controller
             {
                 Email = userRegister.Email,
                 Name = userRegister.Name,
+                Password = BCrypt.Net.BCrypt.HashPassword(userRegister.Password),
                 CreatedDate = DateTimeOffset.Now,
                 Role = Role.Trainee
             };
+            var validationUser = _userRepository.GetAsync(u => u.Email == userRegister.Email);
+            if (validationUser is not null)
+            {
+                throw new EntityAlreadyExistsException();
+            }
             await _userRepository.CreateAsync(user);
 
-            var createdUser = await _userRepository.GetAsync(filter => filter.Email == userRegister.Email);
+            var createdUser = await _userRepository.GetAsync(u => u.Email == userRegister.Email);
 
             if (createdUser is null)
             {
@@ -78,12 +85,23 @@ public class AuthenticationController : Controller
                 throw new EntityDoesNotExistException();
             }
 
-            // BCrypt.Net.BCrypt.Verify(userLogin.Password, retrievedUser.Email);
-            
+            if (!BCrypt.Net.BCrypt.Verify(userLogin.Password, retrievedUser.Password))
+            {
+                throw new InvalidCredentialException();
+            }
+
             var tokens = _jwtService.GenerateToken(retrievedUser);
             Response.Cookies.Append("refreshToken", tokens.refreshToken);
             
             return Ok(tokens.accessToken);
+        }
+        catch (EntityDoesNotExistException)
+        {
+            return Unauthorized("User does not exist");
+        }
+        catch (InvalidCredentialException)
+        {
+            return Unauthorized("Invalid password");
         }
         catch (Exception e)
         {
@@ -101,7 +119,7 @@ public class AuthenticationController : Controller
 
     [HttpPost]
     [Route("refresh")]
-    public async Task<IActionResult> RefreshToken()
+    public IActionResult RefreshToken()
     {
         try
         {

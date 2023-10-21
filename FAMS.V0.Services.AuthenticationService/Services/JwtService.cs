@@ -14,7 +14,7 @@ public class JwtService
 
     public JwtService(IConfiguration configuration)
     {
-        _jwtSettings = configuration.GetSection(nameof(JwtSettings)).Get<JwtSettings>() ?? new JwtSettings();
+        _jwtSettings = configuration.GetSection(nameof(JwtSettings)).Get<JwtSettings>() ?? throw new Exception("Can not find jwt settings");
     }
     
     public (string accessToken, string refreshToken) GenerateToken(User user)
