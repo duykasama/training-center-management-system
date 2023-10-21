@@ -91,7 +91,7 @@ public class UsersController : Controller
             var superAdmin = new User()
             {
                 Name = "Super Admin",
-                Email = "superadmin@fams.com",
+                Email = "superadmin@fams.c om",
                 Phone = "0788353099",
                 Dob = DateTime.Now,
                 Gender = Gender.Male,

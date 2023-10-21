@@ -74,7 +74,7 @@ public class MongoRepository<T> : IRepository<T> where T : IEntity
         var t = await GetByIdAsync(id);
         if (t is null)
         {
-            throw new EntityDoesNotExistException();
+            throw new EntityDoesNotExistException(); 
         }
     
         var filter = _filter.Eq(x => x.Id, id);

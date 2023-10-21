@@ -90,6 +90,28 @@
         "Host": "authenticationservice",
         "Port": 80
       }]
+    },
+    {
+      "UpstreamPathTemplate": "/api/v0/training-program/{traingingprogramId}",
+      "UpstreamHttpMethod": [ "Put", "Delete" ],
+
+      "DownstreamScheme": "http",
+      "DownstreamPathTemplate": "/api/v0/training-program/{traingingprogramId}",
+      "DownstreamHostAndPorts": [{
+        "Host": "trainingprogramservice",
+        "Port": 80
+      }]
+    },
+    {
+      "UpstreamPathTemplate": "/api/v0/training-program",
+      "UpstreamHttpMethod": [ "Get", "Post" ],
+
+      "DownstreamScheme": "http",
+      "DownstreamPathTemplate": "/api/v0/training-program",
+      "DownstreamHostAndPorts": [{
+        "Host": "trainingprogramservice",
+        "Port": 80
+      }]
     }
   ],
   "GlobalConfiguration": {

@@ -64,6 +64,19 @@ services:
    context: .
    dockerfile: ./FAMS.V0.Services.AuthenticationService/Dockerfile
   container_name: fams-service-authentication
+  
+  #  ports:
+  #    - 1000:80
+
+ trainingprogramservice:
+  depends_on:
+   - mongo
+   - rabbitmq
+  image: fams:trainingprogram-service
+  build:
+   context: .
+   dockerfile: ./FAMS.V0.Services.TrainingProgramService/Dockerfile
+  container_name: fams-service-trainingproram
 
 
 

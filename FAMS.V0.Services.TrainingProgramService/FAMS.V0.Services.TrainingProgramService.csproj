@@ -20,8 +20,11 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Controllers\" />
       <Folder Include="Entities\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\FAMS.V0.Shared\FAMS.V0.Shared.csproj" />
     </ItemGroup>
 
 </Project>

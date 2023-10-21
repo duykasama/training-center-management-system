@@ -11,4 +11,6 @@ public class UpdateUserDto
     public string Gender { get; set; }
     public Role Role { get; set; }
     public string Status { get; set; }
+    
+    
 }

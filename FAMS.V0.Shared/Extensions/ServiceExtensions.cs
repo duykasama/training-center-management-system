@@ -19,6 +19,7 @@ public static class ServiceExtensions
 {
     public static IServiceCollection AddMongo(this IServiceCollection services)
     {
+       Console.WriteLine("can be here");
         services.AddSingleton(serviceProvider =>
         {
             var configuration = serviceProvider.GetService<IConfiguration>();
