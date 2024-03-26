@@ -2,5 +2,5 @@
 
 public static class DbConnection
 {
-    public static readonly string MongoDbConnection = nameof(MongoDbConnection);
+    public const string MongoDbConnection = nameof(MongoDbConnection);
 }

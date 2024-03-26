@@ -16,7 +16,7 @@ using StackExchange.Redis;
 
 namespace FAMS.V0.Shared.Extensions;
 
-public static class ServiceExtensions
+public static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddMongo(this IServiceCollection services)
     {

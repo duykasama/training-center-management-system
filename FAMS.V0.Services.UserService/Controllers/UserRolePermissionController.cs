@@ -1,4 +1,6 @@
-﻿using FAMS.V0.Shared.Constants;
+﻿using FAMS.V0.Services.UserService.Attribute;
+using FAMS.V0.Services.UserService.Dtos;
+using FAMS.V0.Shared.Constants;
 using FAMS.V0.Shared.Domain.Entities;
 using FAMS.V0.Shared.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -6,12 +8,12 @@ using Microsoft.AspNetCore.Mvc;
 namespace FAMS.V0.Services.UserService.Controllers;
 
 [ApiController]
-[Route("api/v0/[controller]")]
-public class PermissionsController : Controller
+[Route("api/v0/user-role-permission")]
+public class UserRolePermissionController : Controller
 {
     private readonly IRepository<UserPermission> _userPermissionRepository;
 
-    public PermissionsController(IRepository<UserPermission> userPermissionRepository)
+    public UserRolePermissionController(IRepository<UserPermission> userPermissionRepository)
     {
         _userPermissionRepository = userPermissionRepository;
     }
@@ -54,7 +56,7 @@ public class PermissionsController : Controller
         
         var trainerPermission = new UserPermission()
         {
-            Role = Role.Admin,
+            Role = Role.Trainer,
             Syllabus = new[]
             {
                 Permission.Create,
@@ -76,6 +78,7 @@ public class PermissionsController : Controller
                 Permission.Read,
                 Permission.Update,
                 Permission.Delete,
+                
             },
             UserManagement = ArraySegment<string>.Empty
         };
@@ -92,5 +95,12 @@ public class PermissionsController : Controller
     {
         var permissions = await _userPermissionRepository.GetAllAsync();
         return Ok(permissions);
+    }
+
+    [HttpPut]
+    public async Task UpdateUserPermissions(DtoPermissionsUpdateRequest dtoPermissionsUpdateRequest)
+    {
+
+        await _userPermissionRepository.UpdateAsync(null!);
     }
 }

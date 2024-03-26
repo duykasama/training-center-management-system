@@ -2,7 +2,7 @@
 
 public static class DbCollection
 {
-    public static readonly string User = nameof(User);
-    public static readonly string Syllabus = nameof(Syllabus);
-    public static readonly string UserPermission = nameof(UserPermission);
+    public const string User = nameof(User);
+    public const string Syllabus = nameof(Syllabus);
+    public const string UserPermission = nameof(UserPermission);
 }

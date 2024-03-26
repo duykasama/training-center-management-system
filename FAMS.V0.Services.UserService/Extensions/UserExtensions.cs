@@ -60,8 +60,8 @@ public static class UserExtensions
             Gender = userDto.Gender,
             Role = userDto.Role,
             Status = userDto.Status,
-            CreatedBy = userDto.CreatedBy,
-            ModifiedBy = userDto.CreatedBy,
+            CreatedBy = userDto.CreatedBy ?? Guid.Empty,
+            ModifiedBy = userDto.CreatedBy ?? Guid.Empty,
             CreatedDate = DateTimeOffset.Now,
             ModifiedDate = DateTimeOffset.Now
         };

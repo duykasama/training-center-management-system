@@ -17,7 +17,7 @@ public class ConsumerUserCreated : IConsumer<EventUserCreated>
     public async Task Consume(ConsumeContext<EventUserCreated> context)
     {
 
-        await _userRepository.DeleteAsync(context.Message.User.Id);
+        // await _userRepository.DeleteAsync(context.Message.User.Id);
         Console.WriteLine("User deleted");
     }
 }

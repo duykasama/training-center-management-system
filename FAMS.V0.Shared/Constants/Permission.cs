@@ -2,11 +2,11 @@
 
 public static class Permission
 {
-    public static readonly string Create = nameof(Create);
-    public static readonly string Read = nameof(Read);
-    public static readonly string Update = nameof(Update);
-    public static readonly string Delete = nameof(Delete);
-    public static readonly string Import = nameof(Import);
-    public static readonly string FullAccess = nameof(FullAccess);
-    public static readonly string NoAccess = nameof(NoAccess);
+    public const string Create = nameof(Create);
+    public const string Read = nameof(Read);
+    public const string Update = nameof(Update);
+    public const string Delete = nameof(Delete);
+    public const string Import = nameof(Import);
+    public const string FullAccess = nameof(FullAccess);
+    public const string NoAccess = nameof(NoAccess);
 }

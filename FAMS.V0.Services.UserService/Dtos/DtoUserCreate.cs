@@ -14,5 +14,5 @@ public class DtoUserCreate
     public string Gender { get; set; }
     public Role Role { get; set; }
     public string Status { get; set; }
-    public Guid CreatedBy { get; set; }
+    public Guid? CreatedBy { get; set; }
 }

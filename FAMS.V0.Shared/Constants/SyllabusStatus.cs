@@ -2,6 +2,6 @@
 
 public class SyllabusStatus
 {
-    public static readonly string Public = nameof(Public);
-    public static readonly string Private = nameof(Private);
+    public const string Public = nameof(Public);
+    public const string Private = nameof(Private);
 }

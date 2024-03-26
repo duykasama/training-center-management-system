@@ -2,9 +2,9 @@
 
 public class SyllabusPriority
 {
-    public static readonly int Low = -1;
-    public static readonly int Default = 0;
-    public static readonly int Medium = 1;
-    public static readonly int High = 2;
-    public static readonly int Extreme = 3;
+    public const int Low = -1;
+    public const int Default = 0;
+    public const int Medium = 1;
+    public const int High = 2;
+    public const int Extreme = 3;
 }

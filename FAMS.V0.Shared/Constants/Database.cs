@@ -2,5 +2,5 @@
 
 public static class Database
 {
-    public static readonly string FAMS_DB = nameof(FAMS_DB);
+    public const string FAMS_DB = nameof(FAMS_DB);
 }
